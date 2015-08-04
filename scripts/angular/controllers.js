@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('microApp')
-    .controller('microController', function ($scope, $http, $filter) {
+    .controller('MicroController', function ($scope, $http, $filter) {
         var totalNodes;
         var totalLinks;
         var originalData;
