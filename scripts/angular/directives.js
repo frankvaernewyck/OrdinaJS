@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('microApp')
-    .directive('MicroDirective', function () {
+    .directive('microDirective', function () {
         console.log("directive");
         return {
             restrict: 'E',
