@@ -1,0 +1,327 @@
+{
+  "ordering-loyalty": {
+    "ngrpGetEligibleAwards": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "rheHandleOrderHistory": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "RHE"
+    },
+    "bpsCustomer": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "BPS"
+    },
+    "ngrpGetPartnerMembershipDetails": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "bciSearchCustomerContact": {
+      "status": "UP",
+      "version": "4.0",
+      "type": "SOAP",
+      "group": "BCI"
+    },
+    "rosyIDTVFreeCreditsManagement": {
+      "status": "UP",
+      "version": "1.0",
+      "type": "SOAP",
+      "group": "ROSY"
+    },
+    "rheReceiveOrder": {
+      "status": "UNKNOWN",
+      "type": "SOAP",
+      "group": "RHE"
+    },
+    "discovery": {
+      "status": "UP",
+      "description": "Spring Cloud Eureka Discovery Client",
+      "discoveryClient": {
+        "status": "UP",
+        "description": "Spring Cloud Eureka Discovery Client",
+        "services": [
+          "hystrix",
+          "ereload",
+          "awards",
+          "zuul",
+          "admin",
+          "product-model",
+          "customer-management",
+          "price-services",
+          "ordering-loyalty",
+          "ordering-onedrive",
+          "loyalty-program",
+          "address"
+        ]
+      },
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    },
+    "configServer": {
+      "status": "UP",
+      "propertySources": [
+        "applicationConfig: [classpath:/application.yml]"
+      ],
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    },
+    "pptDataSource_": {
+      "status": "UP",
+      "database": "Microsoft SQL Server",
+      "hello": 1,
+      "type": "DB",
+      "group": "PPT"
+    },
+    "crmodsDataSource_": {
+      "status": "UP",
+      "database": "Oracle",
+      "hello": "Hello",
+      "type": "DB",
+      "group": "CRMODS"
+    }
+  },
+  "address": {},
+  "admin": {
+    "description": "Spring Cloud Eureka Discovery Client"
+  },
+  "customer-management": {
+    "tpyUserProfile": {
+      "status": "UNKNOWN",
+      "type": "REST",
+      "group": "TPY"
+    },
+    "mbpIDP": {
+      "status": "UP",
+      "version": "MBP-IDPServices-4.1",
+      "type": "SOAP",
+      "group": "MBP"
+    },
+    "bciManageCustomerContact": {
+      "status": "UP",
+      "version": "4.0",
+      "type": "SOAP",
+      "group": "BCI"
+    },
+    "imaIMAServices": {
+      "status": "UP",
+      "version": "IMA SERVICES - Service Version 1.1",
+      "type": "SOAP",
+      "group": "IMA"
+    },
+    "cslEmployee": {
+      "status": "UNKNOWN",
+      "type": "SOAP",
+      "group": "CSL"
+    },
+    "cslCustomer": {
+      "status": "UP",
+      "version": "Customer 4.0 (since 2012 CRC03)",
+      "type": "SOAP",
+      "group": "CSL"
+    },
+    "bciSearchCustomerContact": {
+      "status": "UP",
+      "version": "4.0",
+      "type": "SOAP",
+      "group": "BCI"
+    },
+    "discovery": {
+      "status": "UP",
+      "description": "Spring Cloud Eureka Discovery Client",
+      "discoveryClient": {
+        "status": "UP",
+        "description": "Spring Cloud Eureka Discovery Client",
+        "services": [
+          "hystrix",
+          "ereload",
+          "awards",
+          "zuul",
+          "ordering-loyalty",
+          "admin",
+          "loyalty-program",
+          "product-model",
+          "ordering-onedrive",
+          "price-services",
+          "customer-management",
+          "address"
+        ]
+      },
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    },
+    "configServer": {
+      "status": "UP",
+      "propertySources": [
+        "applicationConfig: [classpath:/application.yml]"
+      ],
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    },
+    "pdbDataSource_": {
+      "status": "UP",
+      "database": "Oracle",
+      "hello": "Hello",
+      "type": "DB",
+      "group": "PDB"
+    },
+    "buscDataSource_": {
+      "status": "UP",
+      "database": "Oracle",
+      "hello": "Hello",
+      "type": "DB",
+      "group": "BUSC"
+    }
+  },
+  "awards": {
+    "ngrpGetEligibleAwards": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "pptDeviceTechnicalDetails": {
+      "status": "UNKNOWN",
+      "type": "REST",
+      "group": "PPT"
+    },
+    "pptAwards": {
+      "status": "UNKNOWN",
+      "type": "REST",
+      "group": "PPT"
+    },
+    "discovery": {
+      "status": "UP",
+      "description": "Spring Cloud Eureka Discovery Client",
+      "discoveryClient": {
+        "status": "UP",
+        "description": "Spring Cloud Eureka Discovery Client",
+        "services": [
+          "hystrix",
+          "ereload",
+          "address",
+          "zuul",
+          "ordering-loyalty",
+          "admin",
+          "loyalty-program",
+          "product-model",
+          "customer-management",
+          "ordering-onedrive",
+          "price-services",
+          "awards"
+        ]
+      },
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    },
+    "configServer": {
+      "status": "UP",
+      "propertySources": [
+        "applicationConfig: [classpath:/application.yml]"
+      ],
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    },
+    "pptDataSource_": {
+      "status": "UP",
+      "database": "Microsoft SQL Server",
+      "hello": 1,
+      "type": "DB",
+      "group": "PPT"
+    },
+    "sapcacheDataSource_": {
+      "status": "UP",
+      "database": "Oracle",
+      "hello": "Hello",
+      "type": "DB",
+      "group": "SAPCACHE"
+    }
+  },
+  "ordering-onedrive": {},
+  "loyalty-program": {
+    "ngrpGetLoyaltyDetails": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "ngrpCheckEligibleLoyaltyProgram": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "octCreateCorrespondence": {
+      "status": "UP",
+      "version": "1.9",
+      "type": "SOAP",
+      "group": "OCT"
+    },
+    "ngrpEnrollCustomer": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "ngrpIsEligibleTransferPoints": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "ngrpGetLoyaltyTransactionsPerMonth": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "ngrpTransferPoints": {
+      "status": "UP",
+      "version": "",
+      "type": "SOAP",
+      "group": "NGRP"
+    },
+    "discovery": {
+      "status": "UP",
+      "description": "Spring Cloud Eureka Discovery Client",
+      "discoveryClient": {
+        "status": "UP",
+        "description": "Spring Cloud Eureka Discovery Client",
+        "services": [
+          "hystrix",
+          "ereload",
+          "awards",
+          "zuul",
+          "ordering-loyalty",
+          "admin",
+          "product-model",
+          "customer-management",
+          "ordering-onedrive",
+          "price-services",
+          "loyalty-program",
+          "address"
+        ]
+      },
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    },
+    "configServer": {
+      "status": "UP",
+      "propertySources": [
+        "applicationConfig: [classpath:/application.yml]"
+      ],
+      "type": "MICROSERVICE",
+      "group": "TOOLBOX"
+    }
+  },
+  "hystrix": {
+    "description": "Spring Cloud Eureka Discovery Client"
+  }
+}
