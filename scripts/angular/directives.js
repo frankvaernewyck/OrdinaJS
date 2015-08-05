@@ -157,12 +157,12 @@ angular.module('microApp')
                         (graphWidth / 2) - (graphWidth * 0.2 / 2),
                         (graphHeight / 2) - (graphHeight * 0.2 / 2),];
 
-                    zoom.translate(centerTranslate);
+                    zoom.centerTranslate(centerTranslate);
 
                     // Render transition
-                    graph.transition().duration(500).attr(
+                    graph.transition().duration(300).attr(
                         "transform",
-                        "translate(" + zoom.translate() + ")" + " scale("
+                        "translate(" + zoom.centerTranslate + ")" + " scale("
                         + zoom.scale() + ")");
                 }
 
