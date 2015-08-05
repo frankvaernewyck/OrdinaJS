@@ -20,9 +20,13 @@
     <!--<link rel="stylesheet" media="screen" href="styles/bootstrap.css"/>-->
     <link rel="stylesheet" type="text/css" href="styles/microserv.css"/>
 
+    <link rel="stylesheet" type="text/css" href="styles/jquery-ui.css"/>
     <!--<link href="/stylesheets/_normalize.css" rel="stylesheet" type="text/css" />-->
     <!--<link href="/stylesheets/app.css" media="screen, projector, print" rel="stylesheet" type="text/css" />-->
 
+    <!--<script type="text/javascript" src="//code.jquery.com/jquery-1.6.4.js"></script>-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/normalize.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/result-light.css">-->
 
     <title>Micro Services</title>
 </head>
@@ -182,6 +186,23 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="large-6 columns">
+                                <ul id="fromList" class="links">
+                                    <label style="border-bottom: dashed">Nodes available</label>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </div>
+                            <div class="large-6 columns">
+                                <ul id="toList" class="links">
+                                    <label style="border-bottom: dashed">Nodes to link</label>
+                                    <li></li>
+                                </ul>
+
+                            </div>
+                        </div>
                         <a class="button custom-close-reveal-modal">Cancel</a>
                         <input type="submit" role="button" aria-label="submit form" href="#"
                                class="nice blue radius button" value="Submit"/>
@@ -270,6 +291,33 @@
 <!--<script src="scripts/jquery-1.10.2.min.js"></script>-->
 <script src="scripts/underscore.js"></script>
 
+<script src="scripts/vendor/jquery-ui.js"></script>
+
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
+    jQuery(document).ready(function(){
+        jQuery("#fromList li").draggable({
+            connectToSortable: "#toList",
+            revert: "invalid",
+            containment: '#equipCont',
+            helper: function(e, ui) {
+                return jQuery(this).clone().css('width', jQuery(this).width());
+            }
+        });
+        jQuery("#toList").droppable({
+            drop: function(e, ui) {
+                var dragClone = jQuery(ui.draggable).clone();
+                jQuery("#toList").append(dragClone);
+                $("#toList li").eq(0).hide(true);
+            }
+        });
+        jQuery("ul, li").disableSelection();
+    });
+
+});//]]>
+</script>
+
+
 
 <!--<script src="scripts/angular/directives.js" charset="utf-8"></script>-->
 
@@ -303,7 +351,6 @@
     ga('create', 'UA-12619410-19', 'visualdataweb.org');
     ga('send', 'pageview');
 </script>
-
 
 <script>$(document).foundation();
 $('a.custom-close-reveal-modal').click(function () {

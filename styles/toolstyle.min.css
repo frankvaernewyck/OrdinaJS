@@ -626,3 +626,28 @@ ul#optionsMenu > li:hover .aboutMenu {
         background: rgba(255,255,0,0.8); 
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+
+ul.links {
+    display: inline-block;
+    list-style-type: none;
+    margin: 40px;
+    border: 1px solid #808080;
+    border-bottom: none;
+}
+
+ul.links li {
+    display: block;
+    text-align: left;
+    background: white;
+    width: 208px;
+    min-height: 31px;
+    text-align: left;
+    line-height:31px;
+    list-style-type: none;
+    border-bottom: 1px solid #808080;
+    padding: 0;
+    margin: 0;
+}
+
+
+
