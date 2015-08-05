@@ -41,10 +41,12 @@ angular.module('microApp')
         });
 
         $scope.resetFilter = function() {
-            $scope.nodeSearch.id = undefined;
-            $scope.nodeSearch.status = undefined;
-            $scope.nodeSearch.type = undefined;
-            $scope.nodeSearch.group = undefined;
+            if ($scope.nodeSearch != undefined) {
+                $scope.nodeSearch.id = undefined;
+                $scope.nodeSearch.status = undefined;
+                $scope.nodeSearch.type = undefined;
+                $scope.nodeSearch.group = undefined;
+            }
         }
 
     });

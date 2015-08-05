@@ -5,21 +5,27 @@ angular.module('microApp')
         console.log("directive");
         return {
             restrict: 'E',
-            //scope: {
-            //    val: '='
-            //},
             link: function (scope, element, attrs) {
                 var r = 10;
                 var url = 'data.json';
-                var graph, layout, zoom, nodes, links, data;
+                var graph, layout, zoom, nodes, links, nodeData;
                 var linkedByIndex = {};
                 var graphWidth, graphHeight;
+                var line;
+                var selectedNodes = [];
 
                 scope.$watch('nodes', function (newVal) {
                     console.log("watch");
                     if (newVal != undefined) {
                         renderGraph(newVal);
+                        nodeData = newVal;
                     }
+                });
+
+                scope.$watch('editLinksMode', function (newVal) {
+                   if (!newVal) {
+                       resetNodes();
+                   }
                 });
 
                 // Helpers
@@ -27,8 +33,21 @@ angular.module('microApp')
                     return prefix + '-' + object.id.replace(/(\.|\/)/gi, '-');
                 }
 
+                function formatLinkNameByIndex(prefix, object) {
+                    return prefix + '-' + object.source + '-' + object.target;
+                }
+
+                function formatLinkNameByObject(prefix, object) {
+                    return prefix + '-' + object.source.index + '-' + object.target.index;
+                }
+
                 function findElementByNode(prefix, node) {
                     var selector = '.' + formatClassName(prefix, node);
+                    return graph.select(selector);
+                }
+
+                function findElementByLink(prefix, link) {
+                    var selector = '#' + formatLinkNameByObject(prefix, link);
                     return graph.select(selector);
                 }
 
@@ -126,47 +145,16 @@ angular.module('microApp')
 
                     // Controlers
                     $('.control-zoom a').on('click', onControlZoomClicked);
-
-                    //// Load graph data
-                    //window.getGraphData(function(graphData) {
-                    //
-                    //    renderGraph(graphData);
-                    //    data = graphData;
-                    //
-                    //    // Resize
-                    //    resize();
-                    //    centerGraph();
-                    //
-                    //    // Controlers
-                    //    $('.control-zoom a').on('click', onControlZoomClicked);
-                    //
-                    //});
                 }
 
                 function resize() {
-                    graphWidth = window.innerWidth,
-                        graphHeight = window.innerHeight;
+                    graphWidth = window.innerWidth;
+                    graphHeight = window.innerHeight;
                     graph.attr("width", graphWidth).attr("height", graphHeight);
 
                     layout.size([graphWidth, graphHeight]).resume();
                 }
 
-                function centerGraph() {
-
-                    var centerTranslate = [
-                        (graphWidth / 2) - (graphWidth * 0.2 / 2),
-                        (graphHeight / 2) - (graphHeight * 0.2 / 2),];
-
-                    zoom.centerTranslate();
-
-                    // Render transition
-                    graph.transition().duration(300).attr(
-                        "transform",
-                        "translate(" + zoom.centerTranslate + ")" + " scale("
-                        + zoom.scale() + ")");
-                }
-
-                //scope.renderGraph=function(data){
                 function renderGraph(data) {
 
                     // Markers
@@ -199,15 +187,17 @@ angular.module('microApp')
                                                           //Z = closepath
 
                     // Lines
-                    console.log(data);
                     links = graph.append('svg:g')
                         .selectAll("line")
                         .data(data.links)
                         .enter()
                         .append("svg:path")
+                        .on("click", onLinkMouseDown)
                         .attr('class', 'link')
-                        .attr("data-target",
-                        function (o) {
+                        .attr('id', function(d) {
+                            return formatLinkNameByIndex('link', d);
+                        })
+                        .attr("data-target", function (o) {
                             return o.target
                         }).attr("data-source", function (o) {
                             return o.source
@@ -282,7 +272,6 @@ angular.module('microApp')
 
                     // Resize
                     resize();
-                    centerGraph();
                 }
 
                 var fillColor = function (o) {
@@ -314,12 +303,16 @@ angular.module('microApp')
 
                 function onNodeMouseOver(nodes, links, d) {
 
-                    // Highlight circle
-                    var elm = findElementByNode('circle', d);
-                    elm.style("fill", '#b94431');
+                    if (scope.editLinksMode) {
 
-                    // Highlight related nodes
-                    fadeRelatedNodes(d, .05, nodes, links);
+                    } else {
+                        // Highlight circle
+                        var elm = findElementByNode('circle', d);
+                        elm.style("fill", '#b94431');
+
+                        // Highlight related nodes
+                        fadeRelatedNodes(d, .05, nodes, links);
+                    }
                 }
 
                 function onNodeMouseOut(nodes, links, d) {
@@ -338,11 +331,13 @@ angular.module('microApp')
 
                     links
                         .attr("d", function (d) {
-                            var dx = d.target.x - d.source.x,
-                                dy = d.target.y - d.source.y,
-                                dr = Math.sqrt(dx * dx + dy * dy);
-                            return "M" + d.source.x + "," + d.source.y + "A" + dr + ","
-                                + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+                            if (!isNaN(d.target.x) && !isNaN(d.source.x) && !isNaN(d.target.y) && !isNaN(d.source.y)) {
+                                var dx = d.target.x - d.source.x,
+                                    dy = d.target.y - d.source.y,
+                                    dr = Math.sqrt(dx * dx + dy * dy);
+                                return "M" + d.source.x + "," + d.source.y + "A" + dr + ","
+                                    + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+                            }
                         });
 
                     nodes.attr("cx", function (d) {
@@ -350,12 +345,14 @@ angular.module('microApp')
                     }).attr("cy", function (d) {
                         return d.y;
                     }).attr("transform", function (d) {
-                        return "translate(" + d.x + "," + d.y + ")";
+                        if (!isNaN(d.x) && !isNaN(d.x)) {
+                            return "translate(" + d.x + "," + d.y + ")";
+                        }
                     });
                 }
 
                 function onControlZoomClicked(e) {
-                    var elmTarget = $(this)
+                    var elmTarget = $(this);
                     var scaleProcentile = 0.20;
 
                     // Scale
@@ -390,16 +387,72 @@ angular.module('microApp')
                 }
 
                 function onNodeMouseDown(d) {
-                    console.log(scope);
-                    d.fixed = true;
-                    d3.select(this).classed("sticky", true);
-                    scope.showTheDetails(d);
+                    if (scope.editLinksMode) {
+                        var elm = findElementByNode('circle', d);
+                        elm.style("stroke", "red");
+                        if (selectedNodes.length === 0) {
+                            selectedNodes.push(d);
+                        }  else {
+                            if (d !== selectedNodes[0]) {
+                                selectedNodes.push(d);
+                                connectNodes();
+                            }
+                        }
+                    } else {
+                        d.fixed = true;
+                        d3.select(this).classed("sticky", true);
+                        scope.showTheDetails(d);
+                    }
+                }
+
+                function connectNodes() {
+                    var link = {
+                        source: selectedNodes[0],
+                        target: selectedNodes[1]
+                    };
+                    var found = false;
+                    for (var i = 0; i < nodeData.links.length; i++) {
+                        var nodeLink = nodeData.links[i];
+                        if ((nodeLink.source.id === link.source.id && nodeLink.target.id === link.target.id) || (nodeLink.source.id === link.target.id && nodeLink.target.id === link.source.id)) {
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        //TODO: POST link to backend
+                        nodeData.links.push(link);
+                    }
+                    resetNodes();
+                    scope.resetGraph(nodeData);
+                }
+
+                function onLinkMouseDown(d) {
+                    if (scope.editLinksMode) {
+                        var elm = findElementByLink('link', d);
+                        console.log(elm);
+                        elm.remove();
+
+                        var i = nodeData.links.indexOf(d);
+                        if(i != -1) {
+                            nodeData.links.splice(i, 1);
+                        }
+                        scope.resetGraph(nodeData);
+                    }
+                }
+
+                function resetNodes() {
+                    for (var i = 0; i < selectedNodes.length; i++) {
+                        var elm = findElementByNode('circle', selectedNodes[i]);
+                        elm.style("stroke", "#333");
+                    }
+                    selectedNodes = [];
                 }
 
                 scope.resetGraph = function (data) {
+                    layout.stop();
                     d3.select("svg").remove();
                     render();
                     renderGraph(data);
+                    nodeData = data;
                 };
 
                 render();
