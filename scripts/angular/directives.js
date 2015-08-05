@@ -157,7 +157,7 @@ angular.module('microApp')
                         (graphWidth / 2) - (graphWidth * 0.2 / 2),
                         (graphHeight / 2) - (graphHeight * 0.2 / 2),];
 
-                    zoom.centerTranslate(centerTranslate);
+                    zoom.centerTranslate();
 
                     // Render transition
                     graph.transition().duration(300).attr(

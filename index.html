@@ -86,7 +86,8 @@
 
                     <p class="propDetails">Type: <span id="typeNode">{{currentNode.details.type}}</span></p>
 
-                    <p class="propDetails">Version: <span id="nodeVersion">{{currentNode.details.nodeVersion}}</span></p>
+                    <p class="propDetails">Version: <span id="nodeVersion">{{currentNode.details.nodeVersion}}</span>
+                    </p>
 
                     <p class="propDetails">Group: <span id="group">{{currentNode.details.group}}</span></p>
 
@@ -101,9 +102,9 @@
                 id="selection-releases-trigger" ng-init="showReleases=false"
                 ng-click="showReleases=!showReleases">Releases</h3>
 
-            <div class="accordion-container" id="selection-releases" ng-show="showReleases" >
+            <div class="accordion-container" id="selection-releases" ng-show="showReleases">
                 <!--<p class="propDetails">Release: <span id="release">{{currentNode.releases[0]}}</span></p>-->
-                <ul class="release-container">
+                <ul class="release-container" >
                     <li ng-repeat='release in currentNode.releases'>{{release}}</li>
                 </ul>
             </div>
@@ -187,17 +188,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="large-6 columns">
-                                <ul id="fromList" class="links">
-                                    <label style="border-bottom: dashed">Nodes available</label>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
+                            <div class="small-6 columns">
+                                <label>Nodes available</label>
+                                <ul id="fromList" class="links links-container">
+                                    <li ng-repeat='node in nodes.nodes'>{{node.id}}</li>
                                 </ul>
                             </div>
-                            <div class="large-6 columns">
+                            <div class="small-6 columns">
+                                <label>Nodes to link</label>
                                 <ul id="toList" class="links">
-                                    <label style="border-bottom: dashed">Nodes to link</label>
                                     <li></li>
                                 </ul>
 
@@ -294,18 +293,18 @@
 <script src="scripts/vendor/jquery-ui.js"></script>
 
 <script type="text/javascript">//<![CDATA[
-$(window).load(function(){
-    jQuery(document).ready(function(){
+$(window).load(function () {
+    jQuery(document).ready(function () {
         jQuery("#fromList li").draggable({
             connectToSortable: "#toList",
             revert: "invalid",
             containment: '#equipCont',
-            helper: function(e, ui) {
+            helper: function (e, ui) {
                 return jQuery(this).clone().css('width', jQuery(this).width());
             }
         });
         jQuery("#toList").droppable({
-            drop: function(e, ui) {
+            drop: function (e, ui) {
                 var dragClone = jQuery(ui.draggable).clone();
                 jQuery("#toList").append(dragClone);
                 $("#toList li").eq(0).hide(true);
@@ -316,7 +315,6 @@ $(window).load(function(){
 
 });//]]>
 </script>
-
 
 
 <!--<script src="scripts/angular/directives.js" charset="utf-8"></script>-->
